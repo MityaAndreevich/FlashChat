@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
                     print(e.localizedDescription)
                     self.sendingAlertMessage(title: "Oops...", message: "\(e.localizedDescription)")
                 } else {
-                    self.performSegue(withIdentifier: "LoginToChat", sender: self)
+                    self.performSegue(withIdentifier: K.loginSegue, sender: self)
                 }
             }
         }
@@ -37,7 +37,7 @@ class LoginViewController: UIViewController {
         let okAction = UIAlertAction(title: "Try again", style: .default)
         alertMessage.addAction(okAction)
         let registerAction = UIAlertAction(title: "Register", style: .default) { action in
-            self.performSegue(withIdentifier: "BackToRegister", sender: self)
+            self.performSegue(withIdentifier: K.backToRegister, sender: self)
         }
         alertMessage.addAction(registerAction)
         present(alertMessage, animated: true)
