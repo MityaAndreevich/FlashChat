@@ -13,6 +13,7 @@ class ChatViewController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextfield: UITextField!
+    
     private var messages = Message.getMessages()
     /*var messages: [Message] = [
         Message(sender: "1@2.com", body: "Hey!"),
@@ -27,6 +28,8 @@ class ChatViewController: UIViewController, UITableViewDelegate {
         
         title = K.appName
         navigationItem.hidesBackButton = true
+        
+        tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
@@ -48,13 +51,8 @@ extension ChatViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
-        var content = cell.defaultContentConfiguration()
-        let message = messages[indexPath.row]
-        content.text = message.body
-        cell.contentConfiguration = content
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
+        cell.label.text = messages[indexPath.row].body
         return cell
     }
-    
-    
 }
