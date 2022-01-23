@@ -16,7 +16,7 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "ChatIsOn"
+        title = K.appName
         navigationItem.hidesBackButton = true
     }
     
