@@ -14,6 +14,8 @@ class ChatViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextfield: UITextField!
     
+    let db = Firestore.firestore()
+    
     private var messages = Message.getMessages()
     /*var messages: [Message] = [
         Message(sender: "1@2.com", body: "Hey!"),
@@ -33,6 +35,10 @@ class ChatViewController: UIViewController, UITableViewDelegate {
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
+        
+        if let messageBody = messageTextfield.text, let messageSender = Auth.auth().currentUser?.email {
+            
+        }
     }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
