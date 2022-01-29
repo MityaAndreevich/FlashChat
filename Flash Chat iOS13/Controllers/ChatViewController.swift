@@ -82,7 +82,9 @@ extension ChatViewController {
                         if let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String {
                             let newMessage = Message(sender: messageSender, body: messageBody)
                             self.messages.append(newMessage)
-                            self.tableView.reloadData()
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
                         }
                     }
                 }
