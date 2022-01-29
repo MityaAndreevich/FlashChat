@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class ChatViewController: UIViewController, UITableViewDelegate {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextfield: UITextField!
     
@@ -78,7 +78,12 @@ extension ChatViewController {
             } else  {
                 if let snapshotDocuments = querySnapshot?.documents {
                     for doc in snapshotDocuments {
-                        print(doc.data())
+                        let data = doc.data()
+                        if let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String {
+                            let newMessage = Message(sender: messageSender, body: messageBody)
+                            self.messages.append(newMessage)
+                            self.tableView.reloadData()
+                        }
                     }
                 }
             }
