@@ -17,11 +17,6 @@ class ChatViewController: UIViewController, UITableViewDelegate {
     let db = Firestore.firestore()
     
     private var messages = Message.getMessages()
-    /*var messages: [Message] = [
-        Message(sender: "1@2.com", body: "Hey!"),
-        Message(sender: "a@b.com", body: "Hello!"),
-        Message(sender: "1@2.com", body: "What's up?")
-    ]*/
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +27,8 @@ class ChatViewController: UIViewController, UITableViewDelegate {
         navigationItem.hidesBackButton = true
         
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
+        
+        loadMessages()
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
@@ -69,5 +66,22 @@ extension ChatViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
         cell.label.text = messages[indexPath.row].body
         return cell
+    }
+}
+//MARK: - Load Messages private method
+extension ChatViewController {
+    private func loadMessages() {
+        messages = []
+        db.collection(K.FStore.collectionName).getDocuments { querySnapshot, error in
+            if let e = error {
+                print("There was an issue with rerieving data from Firestore. \(e)")
+            } else  {
+                if let snapshotDocuments = querySnapshot?.documents {
+                    for doc in snapshotDocuments {
+                        print(doc.data())
+                    }
+                }
+            }
+        }
     }
 }
