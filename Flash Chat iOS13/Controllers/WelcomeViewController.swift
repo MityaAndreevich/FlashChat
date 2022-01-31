@@ -8,9 +8,8 @@
 
 import UIKit
 
-
 class WelcomeViewController: UIViewController {
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
